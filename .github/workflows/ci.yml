@@ -1,0 +1,30 @@
+# sonnda-contracts/.github/workflows/ci.yml
+name: Contract CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: make validate-bundle
+      - run: go test ./...
+      - name: Check breaking changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git show "$BASE_SHA:dist/openapi.yaml" > "$RUNNER_TEMP/previous-openapi.yaml"
+          go run github.com/oasdiff/oasdiff@v1.11.7 breaking "$RUNNER_TEMP/previous-openapi.yaml" dist/openapi.yaml
