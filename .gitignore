@@ -1,0 +1,3 @@
+# sonnda-contracts/.gitignore
+bin/
+*.exe
