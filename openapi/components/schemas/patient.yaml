@@ -15,6 +15,9 @@ CreatePatientRequest:
       minLength: 11
       maxLength: 11
       description: "CPF sem pontuação (apenas dígitos)"
+    cns:
+      type: string
+      nullable: true
     full_name:
       type: string
       minLength: 1
@@ -48,10 +51,13 @@ PatientCreatedResponse:
   required: [id]
 Patient:
   type: object
-  description: Representação simplificada do paciente.
-  additionalProperties: true
+  description: Representação do paciente retornada pela API.
+  additionalProperties: false
   properties:
     id:
+      type: string
+      format: uuid
+    owner_user_id:
       type: string
       format: uuid
     cpf:
@@ -59,12 +65,14 @@ Patient:
       pattern: "^[0-9]{11}$"
       minLength: 11
       maxLength: 11
+    cns:
+      type: string
     full_name:
       type: string
       minLength: 1
     birth_date:
       type: string
-      format: date
+      format: date-time
     gender:
       type: string
       enum: [MALE, FEMALE, OTHER, UNKNOWN]
@@ -74,12 +82,26 @@ Patient:
     phone:
       type: string
       pattern: "^\\+?[0-9]{10,15}$"
-      nullable: true
     avatar_url:
       type: string
-      format: uri
-      nullable: true
-  required: [id]
+    created_at:
+      type: string
+      format: date-time
+    updated_at:
+      type: string
+      format: date-time
+  required:
+    [
+      id,
+      cpf,
+      full_name,
+      birth_date,
+      gender,
+      race,
+      avatar_url,
+      created_at,
+      updated_at,
+    ]
 PatientsList:
   type: array
   items:
