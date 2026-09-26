@@ -284,118 +284,26 @@ components:
   # Security Schemes
   securitySchemes:
     bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      $ref: "./openapi/components/security-schemes.yaml#/bearerAuth"
   # Parameters
   parameters:
     PatientId:
-      name: patientId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: Identificador do paciente
+      $ref: "./openapi/components/parameters.yaml#/PatientId"
     LimitParam:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-      description: Número máximo de itens
+      $ref: "./openapi/components/parameters.yaml#/LimitParam"
     OffsetParam:
-      name: offset
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      description: Número de itens para pular
+      $ref: "./openapi/components/parameters.yaml#/OffsetParam"
   # Responses
   responses:
     Problem:
-      description: Erro padronizado (RFC 9457 - Problem Details)
-      content:
-        application/problem+json:
-          schema:
-            $ref: "#/components/schemas/ProblemDetails"
+      $ref: "./openapi/components/responses.yaml#/Problem"
   schemas:
     ProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI que identifica o tipo do problema.
-          example: urn:sonnda:problem:validation_failed
-        title:
-          type: string
-          description: Resumo curto e legível do problema.
-          example: Falha de validação
-        status:
-          type: integer
-          description: HTTP status code.
-          example: 400
-        detail:
-          type: string
-          description: Explicação específica desta ocorrência.
-          example: entrada inválida
-        instance:
-          type: string
-          description: URI que identifica a ocorrência específica do problema.
-          example: urn:sonnda:request-id:8a0f8a9b-2e1c-4c46-a2b1-1a6f8a6c2e44
-        code:
-          type: string
-          description: Código estável do erro (contrato Sonnda).
-          example: VALIDATION_FAILED
-        traceId:
-          type: string
-          description: Identificador para rastreamento (normalmente X-Request-ID).
-          example: 8a0f8a9b-2e1c-4c46-a2b1-1a6f8a6c2e44
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp (UTC) da ocorrência do erro.
-          example: "2026-02-06T12:34:56Z"
-        violations:
-          type: array
-          description: Lista de violações de validação (quando aplicável).
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                example: birth_date
-              reason:
-                type: string
-                example: required
-      required: [type, title, status, detail, code]
+      $ref: "./openapi/components/schemas/common.yaml#/ProblemDetails"
     HealthResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ok
-      required: [status]
+      $ref: "./openapi/components/schemas/common.yaml#/HealthResponse"
     RootResponse:
-      type: object
-      properties:
-        name:
-          type: string
-        version:
-          type: string
-        environment:
-          type: string
-        docs:
-          type: string
-        openapi:
-          type: string
-        health:
-          type: string
-        ready:
-          type: string
-      required: [name, version, environment, docs, openapi, health, ready]
+      $ref: "./openapi/components/schemas/common.yaml#/RootResponse"
     CreateUserRequest:
       $ref: "./openapi/components/schemas/account.yaml#/CreateUserRequest"
     UpdateUserRequest:
@@ -417,233 +325,24 @@ components:
     PatientsList:
       $ref: "./openapi/components/schemas/patient.yaml#/PatientsList"
     ExamDocument:
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-          format: uuid
-        patient_id:
-          type: string
-          format: uuid
-        uploaded_by_user_id:
-          type: string
-          format: uuid
-        storage_uri:
-          type: string
-        original_filename:
-          type: string
-        mime_type:
-          type: string
-        status:
-          type: string
-        exam_type:
-          type: string
-          nullable: true
-        extraction_method:
-          type: string
-          nullable: true
-        confidence:
-          type: number
-          format: double
-          nullable: true
-        error_message:
-          type: string
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      required:
-        [
-          id,
-          patient_id,
-          uploaded_by_user_id,
-          storage_uri,
-          original_filename,
-          mime_type,
-          status,
-          created_at,
-          updated_at,
-        ]
+      $ref: "./openapi/components/schemas/exams.yaml#/ExamDocument"
     LabsList:
-      description: |-
-        Lista de laudos. Por padrao retorna a representacao resumida
-        (LabReportSummaryList). Quando expand=full ou include contem full,
-        results ou test_results, retorna LabReportFullList.
-      oneOf:
-        - $ref: "#/components/schemas/LabReportSummaryList"
-        - $ref: "#/components/schemas/LabReportFullList"
+      $ref: "./openapi/components/schemas/exams.yaml#/LabsList"
     LabReportSummaryList:
-      type: array
-      items:
-        $ref: "#/components/schemas/LabReportSummary"
+      $ref: "./openapi/components/schemas/exams.yaml#/LabReportSummaryList"
     LabReportSummary:
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-          format: uuid
-        patient_id:
-          type: string
-          format: uuid
-        report_date:
-          type: string
-          format: date-time
-          nullable: true
-        summary_tests:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/LabResultSummary"
-      required: [id, patient_id, summary_tests]
+      $ref: "./openapi/components/schemas/exams.yaml#/LabReportSummary"
     LabResultSummary:
-      type: object
-      additionalProperties: false
-      properties:
-        test_name:
-          type: string
-        collected_at:
-          type: string
-          format: date-time
-          nullable: true
-        key_results:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/LabResultItemSummary"
-      required: [test_name, key_results]
+      $ref: "./openapi/components/schemas/exams.yaml#/LabResultSummary"
     LabResultItemSummary:
-      type: object
-      additionalProperties: false
-      properties:
-        parameter_name:
-          type: string
-        result_value:
-          type: string
-          nullable: true
-        result_unit:
-          type: string
-          nullable: true
-      required: [parameter_name]
+      $ref: "./openapi/components/schemas/exams.yaml#/LabResultItemSummary"
     LabReportFullList:
-      type: array
-      items:
-        $ref: "#/components/schemas/LabReportFull"
+      $ref: "./openapi/components/schemas/exams.yaml#/LabReportFullList"
     LabReportFull:
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-          format: uuid
-        patient_id:
-          type: string
-          format: uuid
-        patient_name:
-          type: string
-          nullable: true
-        patient_dob:
-          type: string
-          format: date-time
-          nullable: true
-        lab_name:
-          type: string
-          nullable: true
-        lab_phone:
-          type: string
-          nullable: true
-        insurance_provider:
-          type: string
-          nullable: true
-        requesting_doctor:
-          type: string
-          nullable: true
-        technical_manager:
-          type: string
-          nullable: true
-        report_date:
-          type: string
-          format: date-time
-          nullable: true
-        uploaded_by_user_id:
-          type: string
-          format: uuid
-        fingerprint:
-          type: string
-          nullable: true
-        test_results:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/LabTestResultFull"
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      required:
-        [
-          id,
-          patient_id,
-          uploaded_by_user_id,
-          test_results,
-          created_at,
-          updated_at,
-        ]
+      $ref: "./openapi/components/schemas/exams.yaml#/LabReportFull"
     LabTestResultFull:
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-          format: uuid
-        test_name:
-          type: string
-        material:
-          type: string
-          nullable: true
-        method:
-          type: string
-          nullable: true
-        collected_at:
-          type: string
-          format: date-time
-          nullable: true
-        release_at:
-          type: string
-          format: date-time
-          nullable: true
-        items:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/LabTestItemFull"
-      required: [id, test_name, items]
+      $ref: "./openapi/components/schemas/exams.yaml#/LabTestResultFull"
     LabTestItemFull:
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-          format: uuid
-        parameter_name:
-          type: string
-        result_value:
-          type: string
-          nullable: true
-        result_unit:
-          type: string
-          nullable: true
-        reference_text:
-          type: string
-          nullable: true
-      required: [id, parameter_name]
+      $ref: "./openapi/components/schemas/exams.yaml#/LabTestItemFull"
     LabUploadResponse:
-      type: object
-      description: Retorno do processamento do laudo.
-      additionalProperties: true
+      $ref: "./openapi/components/schemas/exams.yaml#/LabUploadResponse"

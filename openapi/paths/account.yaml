@@ -13,24 +13,24 @@ me:
       content:
         application/json:
           schema:
-            $ref: "../../openapi.yaml#/components/schemas/CreateUserRequest"
+            $ref: "../components/schemas/account.yaml#/CreateUserRequest"
     responses:
       "201":
         description: Usuário criado
         content:
           application/json:
             schema:
-              $ref: "../../openapi.yaml#/components/schemas/User"
+              $ref: "../components/schemas/account.yaml#/User"
       "409":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "400":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "401":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "422":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "500":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
   get:
     operationId: getCurrentAccount
     summary: Obter perfil do usuário atual
@@ -42,13 +42,13 @@ me:
         content:
           application/json:
             schema:
-              $ref: "../../openapi.yaml#/components/schemas/User"
+              $ref: "../components/schemas/account.yaml#/User"
       "403":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "401":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "500":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
   put:
     operationId: updateCurrentAccount
     summary: Atualizar perfil do usuário atual
@@ -58,24 +58,24 @@ me:
       content:
         application/json:
           schema:
-            $ref: "../../openapi.yaml#/components/schemas/UpdateUserRequest"
+            $ref: "../components/schemas/account.yaml#/UpdateUserRequest"
     responses:
       "200":
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../../openapi.yaml#/components/schemas/User"
+              $ref: "../components/schemas/account.yaml#/User"
       "400":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "403":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "401":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "422":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "500":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
   delete:
     operationId: deleteCurrentAccount
     summary: Remover usuário atual (hard delete)
@@ -84,8 +84,8 @@ me:
       "204":
         description: No Content
       "403":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "401":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"
       "500":
-        $ref: "../../openapi.yaml#/components/responses/Problem"
+        $ref: "../components/responses.yaml#/Problem"

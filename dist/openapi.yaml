@@ -22,8 +22,32 @@ components:
       schema:
         format: uuid
         type: string
+    openapi_components_parameters_LimitParam:
+      description: Número máximo de itens
+      in: query
+      name: limit
+      schema:
+        minimum: 1
+        type: integer
+    openapi_components_parameters_OffsetParam:
+      description: Número de itens para pular
+      in: query
+      name: offset
+      schema:
+        minimum: 0
+        type: integer
+    openapi_components_parameters_PatientId:
+      description: Identificador do paciente
+      in: path
+      name: patientId
+      required: true
+      schema:
+        format: uuid
+        type: string
   responses:
     Problem:
+      $ref: "#/components/responses/openapi_components_responses_Problem"
+    openapi_components_responses_Problem:
       content:
         application/problem+json:
           schema:
@@ -599,6 +623,8 @@ components:
       type: object
   securitySchemes:
     bearerAuth:
+      $ref: "#/components/securitySchemes/openapi_components_security-schemes_bearerAuth"
+    openapi_components_security-schemes_bearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
@@ -727,11 +753,11 @@ paths:
         "204":
           description: No Content
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Remover usuário atual (hard delete)
       tags:
       - Me
@@ -746,11 +772,11 @@ paths:
                 $ref: "#/components/schemas/User"
           description: OK
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Obter perfil do usuário atual
       tags:
       - Me
@@ -774,15 +800,15 @@ paths:
                 $ref: "#/components/schemas/User"
           description: Usuário criado
         "400":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "409":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "422":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Criar usuário
       tags:
       - Me
@@ -802,15 +828,15 @@ paths:
                 $ref: "#/components/schemas/User"
           description: OK
         "400":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "422":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Atualizar perfil do usuário atual
       tags:
       - Me
@@ -818,8 +844,8 @@ paths:
     get:
       operationId: listAccessiblePatients
       parameters:
-      - $ref: "#/components/parameters/LimitParam"
-      - $ref: "#/components/parameters/OffsetParam"
+      - $ref: "#/components/parameters/openapi_components_parameters_LimitParam"
+      - $ref: "#/components/parameters/openapi_components_parameters_OffsetParam"
       responses:
         "200":
           content:
@@ -828,11 +854,11 @@ paths:
                 $ref: "#/components/schemas/AccessiblePatientsResponse"
           description: OK
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Listar pacientes acessíveis pela conta atual
       tags:
       - Patient Access
@@ -847,9 +873,9 @@ paths:
                 $ref: "#/components/schemas/PatientsList"
           description: OK
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Listar pacientes
       tags:
       - Patient
@@ -874,13 +900,13 @@ paths:
               schema:
                 type: string
         "400":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "422":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Criar paciente
       tags:
       - Patient
@@ -888,7 +914,7 @@ paths:
     get:
       operationId: getPatient
       parameters:
-      - $ref: "#/components/parameters/PatientId"
+      - $ref: "#/components/parameters/openapi_components_parameters_PatientId"
       responses:
         "200":
           content:
@@ -897,13 +923,13 @@ paths:
                 $ref: "#/components/schemas/Patient"
           description: OK
         "400":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "404":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Obter paciente
       tags:
       - Patient

@@ -1,0 +1,75 @@
+# sonnda-contracts/openapi/components/schemas/common.yaml
+ProblemDetails:
+  type: object
+  properties:
+    type:
+      type: string
+      description: URI que identifica o tipo do problema.
+      example: urn:sonnda:problem:validation_failed
+    title:
+      type: string
+      description: Resumo curto e legível do problema.
+      example: Falha de validação
+    status:
+      type: integer
+      description: HTTP status code.
+      example: 400
+    detail:
+      type: string
+      description: Explicação específica desta ocorrência.
+      example: entrada inválida
+    instance:
+      type: string
+      description: URI que identifica a ocorrência específica do problema.
+      example: urn:sonnda:request-id:8a0f8a9b-2e1c-4c46-a2b1-1a6f8a6c2e44
+    code:
+      type: string
+      description: Código estável do erro (contrato Sonnda).
+      example: VALIDATION_FAILED
+    traceId:
+      type: string
+      description: Identificador para rastreamento (normalmente X-Request-ID).
+      example: 8a0f8a9b-2e1c-4c46-a2b1-1a6f8a6c2e44
+    timestamp:
+      type: string
+      format: date-time
+      description: Timestamp (UTC) da ocorrência do erro.
+      example: "2026-02-06T12:34:56Z"
+    violations:
+      type: array
+      description: Lista de violações de validação (quando aplicável).
+      items:
+        type: object
+        properties:
+          field:
+            type: string
+            example: birth_date
+          reason:
+            type: string
+            example: required
+  required: [type, title, status, detail, code]
+HealthResponse:
+  type: object
+  properties:
+    status:
+      type: string
+      example: ok
+  required: [status]
+RootResponse:
+  type: object
+  properties:
+    name:
+      type: string
+    version:
+      type: string
+    environment:
+      type: string
+    docs:
+      type: string
+    openapi:
+      type: string
+    health:
+      type: string
+    ready:
+      type: string
+  required: [name, version, environment, docs, openapi, health, ready]

@@ -1,0 +1,7 @@
+# sonnda-contracts/openapi/components/responses.yaml
+Problem:
+  description: Erro padronizado (RFC 9457 - Problem Details)
+  content:
+    application/problem+json:
+      schema:
+        $ref: "./schemas/common.yaml#/ProblemDetails"

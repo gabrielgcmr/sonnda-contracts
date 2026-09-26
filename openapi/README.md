@@ -13,10 +13,15 @@ Os contratos já extraídos por contexto são:
 - `components/schemas/account.yaml`: `CreateUserRequest`, `UpdateUserRequest` e `User`.
 - `components/schemas/patient-access.yaml`: respostas da listagem de acesso.
 - `components/schemas/patient.yaml`: requests e responses do perfil do paciente.
+- `components/schemas/common.yaml`: respostas genéricas da API.
+- `components/schemas/exams.yaml`: documentos e laudos de exames.
+- `components/parameters.yaml`: parâmetros reutilizáveis.
+- `components/responses.yaml`: respostas reutilizáveis, incluindo `Problem`.
+- `components/security-schemes.yaml`: esquemas de autenticação.
 
-Os demais contratos e componentes compartilhados continuam no arquivo principal.
-Os `$ref` são relativos ao arquivo que os contém. Assim, os módulos de paths
-referenciam os componentes compartilhados por `../../openapi.yaml#/components/...`.
+O arquivo raiz contém os metadados, paths e o índice dos componentes. Os módulos
+referenciam diretamente os arquivos em `components/`; os `$ref` são relativos
+ao arquivo que os contém.
 
 ## Convenções de operações
 

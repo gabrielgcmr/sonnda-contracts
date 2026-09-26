@@ -38,7 +38,7 @@ CreatePatientRequest:
       format: uri
       nullable: true
     relation_type:
-      $ref: "../../../openapi.yaml#/components/schemas/RelationshipType"
+      $ref: "./patient-access.yaml#/RelationshipType"
 PatientCreatedResponse:
   type: object
   properties:
@@ -83,4 +83,4 @@ Patient:
 PatientsList:
   type: array
   items:
-    $ref: "../../../openapi.yaml#/components/schemas/Patient"
+    $ref: "#/Patient"

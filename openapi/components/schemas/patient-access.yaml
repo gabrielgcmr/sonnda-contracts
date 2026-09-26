@@ -24,7 +24,7 @@ AccessiblePatientsResponse:
     patients:
       type: array
       items:
-        $ref: "../../../openapi.yaml#/components/schemas/AccessiblePatientSummary"
+        $ref: "#/AccessiblePatientSummary"
     total:
       type: integer
       format: int64

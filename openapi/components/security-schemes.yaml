@@ -1,0 +1,5 @@
+# sonnda-contracts/openapi/components/security-schemes.yaml
+bearerAuth:
+  type: http
+  scheme: bearer
+  bearerFormat: JWT

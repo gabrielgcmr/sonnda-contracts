@@ -1,0 +1,25 @@
+# sonnda-contracts/openapi/components/parameters.yaml
+PatientId:
+  name: patientId
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
+  description: Identificador do paciente
+LimitParam:
+  name: limit
+  in: query
+  required: false
+  schema:
+    type: integer
+    minimum: 1
+  description: Número máximo de itens
+OffsetParam:
+  name: offset
+  in: query
+  required: false
+  schema:
+    type: integer
+    minimum: 0
+  description: Número de itens para pular
