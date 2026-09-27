@@ -1,0 +1,99 @@
+# sonnda-contracts/openapi/paths/labs.yaml
+legacy-list:
+  get:
+    operationId: listPatientLabs
+    summary: Listar laudos
+    tags: [Labs]
+    parameters:
+      - $ref: "../components/parameters.yaml#/PatientId"
+      - name: expand
+        in: query
+        required: false
+        schema:
+          type: string
+          enum: [full]
+        description: Retorna a representação completa quando expand=full
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: string
+        description: "Lista de campos para expandir (ex.: results)"
+      - $ref: "../components/parameters.yaml#/LimitParam"
+      - $ref: "../components/parameters.yaml#/OffsetParam"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/exams.yaml#/LabsList"
+      "400":
+        $ref: "../components/responses.yaml#/Problem"
+      "401":
+        $ref: "../components/responses.yaml#/Problem"
+      "500":
+        $ref: "../components/responses.yaml#/Problem"
+collection:
+  get:
+    operationId: listPatientLabReports
+    summary: Listar laudos laboratoriais
+    tags: [LabReports]
+    parameters:
+      - $ref: "../components/parameters.yaml#/PatientId"
+      - name: expand
+        in: query
+        required: false
+        schema:
+          type: string
+          enum: [full]
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: string
+      - $ref: "../components/parameters.yaml#/LimitParam"
+      - $ref: "../components/parameters.yaml#/OffsetParam"
+    responses:
+      "200":
+        description: Laudos do paciente
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/exams.yaml#/LabsList"
+      "400":
+        $ref: "../components/responses.yaml#/Problem"
+      "401":
+        $ref: "../components/responses.yaml#/Problem"
+      "403":
+        $ref: "../components/responses.yaml#/Problem"
+      "500":
+        $ref: "../components/responses.yaml#/Problem"
+
+item:
+  get:
+    operationId: getLabReport
+    summary: Obter laudo laboratorial
+    tags: [LabReports]
+    parameters:
+      - name: labReportId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    responses:
+      "200":
+        description: Laudo laboratorial
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/exams.yaml#/LabReportFull"
+      "401":
+        $ref: "../components/responses.yaml#/Problem"
+      "403":
+        $ref: "../components/responses.yaml#/Problem"
+      "404":
+        $ref: "../components/responses.yaml#/Problem"
+      "500":
+        $ref: "../components/responses.yaml#/Problem"

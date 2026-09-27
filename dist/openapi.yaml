@@ -403,10 +403,6 @@ components:
       - test_name
       - items
       type: object
-    LabUploadResponse:
-      additionalProperties: true
-      description: Retorno do processamento do laudo.
-      type: object
     LabsList:
       description: |-
         Lista de laudos. Por padrao retorna a representacao resumida
@@ -755,13 +751,13 @@ paths:
                 $ref: "#/components/schemas/LabReportFull"
           description: Laudo laboratorial
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "404":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Obter laudo laboratorial
       tags:
       - LabReports
@@ -998,7 +994,7 @@ paths:
     get:
       operationId: listPatientLabReports
       parameters:
-      - $ref: "#/components/parameters/PatientId"
+      - $ref: "#/components/parameters/openapi_components_parameters_PatientId"
       - in: query
         name: expand
         schema:
@@ -1009,8 +1005,8 @@ paths:
         name: include
         schema:
           type: string
-      - $ref: "#/components/parameters/LimitParam"
-      - $ref: "#/components/parameters/OffsetParam"
+      - $ref: "#/components/parameters/openapi_components_parameters_LimitParam"
+      - $ref: "#/components/parameters/openapi_components_parameters_OffsetParam"
       responses:
         "200":
           content:
@@ -1019,13 +1015,13 @@ paths:
                 $ref: "#/components/schemas/LabsList"
           description: Laudos do paciente
         "400":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Listar laudos laboratoriais
       tags:
       - LabReports
@@ -1033,7 +1029,7 @@ paths:
     get:
       operationId: listPatientLabs
       parameters:
-      - $ref: "#/components/parameters/PatientId"
+      - $ref: "#/components/parameters/openapi_components_parameters_PatientId"
       - description: Retorna a representação completa quando expand=full
         in: query
         name: expand
@@ -1046,8 +1042,8 @@ paths:
         name: include
         schema:
           type: string
-      - $ref: "#/components/parameters/LimitParam"
-      - $ref: "#/components/parameters/OffsetParam"
+      - $ref: "#/components/parameters/openapi_components_parameters_LimitParam"
+      - $ref: "#/components/parameters/openapi_components_parameters_OffsetParam"
       responses:
         "200":
           content:
@@ -1056,48 +1052,12 @@ paths:
                 $ref: "#/components/schemas/LabsList"
           description: OK
         "400":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Listar laudos
-      tags:
-      - Labs
-    post:
-      operationId: uploadPatientLab
-      parameters:
-      - $ref: "#/components/parameters/PatientId"
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              properties:
-                file:
-                  format: binary
-                  type: string
-              required:
-              - file
-              type: object
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/LabUploadResponse"
-          description: Laudo criado
-        "400":
-          $ref: "#/components/responses/Problem"
-        "401":
-          $ref: "#/components/responses/Problem"
-        "413":
-          $ref: "#/components/responses/Problem"
-        "415":
-          $ref: "#/components/responses/Problem"
-        "500":
-          $ref: "#/components/responses/Problem"
-      summary: Upload de laudo
       tags:
       - Labs
 security:

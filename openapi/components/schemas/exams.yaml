@@ -219,7 +219,3 @@ LabTestItemFull:
       type: string
       nullable: true
   required: [id, parameter_name]
-LabUploadResponse:
-  type: object
-  description: Retorno do processamento do laudo.
-  additionalProperties: true
