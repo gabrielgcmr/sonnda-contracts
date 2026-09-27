@@ -77,6 +77,10 @@ paths:
     $ref: "./openapi/paths/patient.yaml#/collection"
   /v1/patients/{patientId}:
     $ref: "./openapi/paths/patient.yaml#/item"
+  /v1/patients/{patientId}/exam-documents:
+    $ref: "./openapi/paths/exams.yaml#/collection"
+  /v1/exam-documents/{documentId}:
+    $ref: "./openapi/paths/exams.yaml#/item"
   /v1/patients/{patientId}/labs:
     get:
       operationId: listPatientLabs
@@ -145,73 +149,6 @@ paths:
         "413":
           $ref: "#/components/responses/Problem"
         "415":
-          $ref: "#/components/responses/Problem"
-        "500":
-          $ref: "#/components/responses/Problem"
-  /v1/patients/{patientId}/exam-documents:
-    post:
-      operationId: uploadExamDocument
-      summary: Enviar documento de exame
-      tags: [ExamDocuments]
-      parameters:
-        - $ref: "#/components/parameters/PatientId"
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              required: [file]
-              properties:
-                file:
-                  type: string
-                  format: binary
-                collection_date:
-                  type: string
-                  format: date
-      responses:
-        "201":
-          description: Documento recebido e classificado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExamDocument"
-        "400":
-          $ref: "#/components/responses/Problem"
-        "401":
-          $ref: "#/components/responses/Problem"
-        "403":
-          $ref: "#/components/responses/Problem"
-        "413":
-          $ref: "#/components/responses/Problem"
-        "415":
-          $ref: "#/components/responses/Problem"
-        "500":
-          $ref: "#/components/responses/Problem"
-  /v1/exam-documents/{documentId}:
-    get:
-      operationId: getExamDocument
-      summary: Obter documento de exame
-      tags: [ExamDocuments]
-      parameters:
-        - name: documentId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        "200":
-          description: Documento de exame
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExamDocument"
-        "401":
-          $ref: "#/components/responses/Problem"
-        "403":
-          $ref: "#/components/responses/Problem"
-        "404":
           $ref: "#/components/responses/Problem"
         "500":
           $ref: "#/components/responses/Problem"

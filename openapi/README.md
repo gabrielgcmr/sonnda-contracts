@@ -10,6 +10,7 @@ Os contratos já extraídos por contexto são:
 - `paths/account.yaml`: operações de perfil em `/v1/me`.
 - `paths/patient-access.yaml`: listagem de `/v1/me/patients`.
 - `paths/patient.yaml`: criação, listagem e consulta do perfil do paciente.
+- `paths/exams.yaml`: envio e consulta de documentos de exame.
 - `components/schemas/account.yaml`: `CreateUserRequest`, `UpdateUserRequest` e `User`.
 - `components/schemas/patient-access.yaml`: respostas da listagem de acesso.
 - `components/schemas/patient.yaml`: requests e responses do perfil do paciente.

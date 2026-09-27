@@ -102,6 +102,9 @@ components:
         birth_date:
           format: date
           type: string
+        cns:
+          nullable: true
+          type: string
         cpf:
           description: CPF sem pontuação (apenas dígitos)
           maxLength: 11
@@ -413,20 +416,23 @@ components:
       - $ref: "#/components/schemas/LabReportSummaryList"
       - $ref: "#/components/schemas/LabReportFullList"
     Patient:
-      additionalProperties: true
-      description: Representação simplificada do paciente.
+      additionalProperties: false
+      description: Representação do paciente retornada pela API.
       properties:
         avatar_url:
-          format: uri
-          nullable: true
           type: string
         birth_date:
-          format: date
+          format: date-time
+          type: string
+        cns:
           type: string
         cpf:
           maxLength: 11
           minLength: 11
           pattern: ^[0-9]{11}$
+          type: string
+        created_at:
+          format: date-time
           type: string
         full_name:
           minLength: 1
@@ -441,8 +447,10 @@ components:
         id:
           format: uuid
           type: string
+        owner_user_id:
+          format: uuid
+          type: string
         phone:
-          nullable: true
           pattern: "^\\+?[0-9]{10,15}$"
           type: string
         race:
@@ -454,8 +462,19 @@ components:
           - INDIGENOUS
           - UNKNOWN
           type: string
+        updated_at:
+          format: date-time
+          type: string
       required:
       - id
+      - cpf
+      - full_name
+      - birth_date
+      - gender
+      - race
+      - avatar_url
+      - created_at
+      - updated_at
       type: object
     PatientCreatedResponse:
       properties:
@@ -708,13 +727,13 @@ paths:
                 $ref: "#/components/schemas/ExamDocument"
           description: Documento de exame
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "404":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Obter documento de exame
       tags:
       - ExamDocuments
@@ -937,7 +956,7 @@ paths:
     post:
       operationId: uploadExamDocument
       parameters:
-      - $ref: "#/components/parameters/PatientId"
+      - $ref: "#/components/parameters/openapi_components_parameters_PatientId"
       requestBody:
         content:
           multipart/form-data:
@@ -961,17 +980,17 @@ paths:
                 $ref: "#/components/schemas/ExamDocument"
           description: Documento recebido e classificado
         "400":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "401":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "403":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "413":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "415":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
         "500":
-          $ref: "#/components/responses/Problem"
+          $ref: "#/components/responses/openapi_components_responses_Problem"
       summary: Enviar documento de exame
       tags:
       - ExamDocuments
