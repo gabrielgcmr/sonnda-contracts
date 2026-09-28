@@ -81,6 +81,8 @@ paths:
     $ref: "./openapi/paths/exams.yaml#/collection"
   /v1/exam-documents/{documentId}:
     $ref: "./openapi/paths/exams.yaml#/item"
+  /v1/exam-documents/{documentId}/file:
+    $ref: "./openapi/paths/exams.yaml#/file"
   /v1/patients/{patientId}/labs:
     $ref: "./openapi/paths/labs.yaml#/legacy-list"
   /v1/patients/{patientId}/lab-reports:
@@ -136,6 +138,8 @@ components:
       $ref: "./openapi/components/schemas/patient.yaml#/PatientsList"
     ExamDocument:
       $ref: "./openapi/components/schemas/exams.yaml#/ExamDocument"
+    ExamDocumentFile:
+      $ref: "./openapi/components/schemas/exams.yaml#/ExamDocumentFile"
     LabsList:
       $ref: "./openapi/components/schemas/exams.yaml#/LabsList"
     LabReportSummaryList:

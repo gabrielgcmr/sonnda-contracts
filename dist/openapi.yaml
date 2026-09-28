@@ -200,8 +200,6 @@ components:
           type: string
         status:
           type: string
-        storage_uri:
-          type: string
         updated_at:
           format: date-time
           type: string
@@ -212,12 +210,24 @@ components:
       - id
       - patient_id
       - uploaded_by_user_id
-      - storage_uri
       - original_filename
       - mime_type
       - status
       - created_at
       - updated_at
+      type: object
+    ExamDocumentFile:
+      additionalProperties: false
+      properties:
+        expires_at:
+          format: date-time
+          type: string
+        url:
+          format: uri
+          type: string
+      required:
+      - url
+      - expires_at
       type: object
     HealthResponse:
       properties:
@@ -733,6 +743,34 @@ paths:
       summary: Obter documento de exame
       tags:
       - ExamDocuments
+  /v1/exam-documents/{documentId}/file:
+    get:
+      operationId: getExamDocumentFile
+      parameters:
+      - in: path
+        name: documentId
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExamDocumentFile"
+          description: URL temporária e autorizada para visualizar ou baixar o arquivo
+        "401":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+        "403":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+        "404":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+        "500":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+      summary: Obter URL temporária do arquivo de exame
+      tags:
+      - ExamDocuments
   /v1/lab-reports/{labReportId}:
     get:
       operationId: getLabReport
@@ -949,6 +987,32 @@ paths:
       tags:
       - Patient
   /v1/patients/{patientId}/exam-documents:
+    get:
+      operationId: listExamDocuments
+      parameters:
+      - $ref: "#/components/parameters/openapi_components_parameters_PatientId"
+      - $ref: "#/components/parameters/openapi_components_parameters_LimitParam"
+      - $ref: "#/components/parameters/openapi_components_parameters_OffsetParam"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ExamDocument"
+                type: array
+          description: Documentos de exame do paciente
+        "400":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+        "401":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+        "403":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+        "500":
+          $ref: "#/components/responses/openapi_components_responses_Problem"
+      summary: Listar documentos de exame
+      tags:
+      - ExamDocuments
     post:
       operationId: uploadExamDocument
       parameters:

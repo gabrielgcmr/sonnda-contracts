@@ -1,5 +1,30 @@
 # sonnda-contracts/openapi/paths/exams.yaml
 collection:
+  get:
+    operationId: listExamDocuments
+    summary: Listar documentos de exame
+    tags: [ExamDocuments]
+    parameters:
+      - $ref: "../components/parameters.yaml#/PatientId"
+      - $ref: "../components/parameters.yaml#/LimitParam"
+      - $ref: "../components/parameters.yaml#/OffsetParam"
+    responses:
+      "200":
+        description: Documentos de exame do paciente
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../components/schemas/exams.yaml#/ExamDocument"
+      "400":
+        $ref: "../components/responses.yaml#/Problem"
+      "401":
+        $ref: "../components/responses.yaml#/Problem"
+      "403":
+        $ref: "../components/responses.yaml#/Problem"
+      "500":
+        $ref: "../components/responses.yaml#/Problem"
   post:
     operationId: uploadExamDocument
     summary: Enviar documento de exame
@@ -59,6 +84,33 @@ item:
           application/json:
             schema:
               $ref: "../components/schemas/exams.yaml#/ExamDocument"
+      "401":
+        $ref: "../components/responses.yaml#/Problem"
+      "403":
+        $ref: "../components/responses.yaml#/Problem"
+      "404":
+        $ref: "../components/responses.yaml#/Problem"
+      "500":
+        $ref: "../components/responses.yaml#/Problem"
+file:
+  get:
+    operationId: getExamDocumentFile
+    summary: Obter URL temporária do arquivo de exame
+    tags: [ExamDocuments]
+    parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    responses:
+      "200":
+        description: URL temporária e autorizada para visualizar ou baixar o arquivo
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/exams.yaml#/ExamDocumentFile"
       "401":
         $ref: "../components/responses.yaml#/Problem"
       "403":

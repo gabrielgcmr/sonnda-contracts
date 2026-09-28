@@ -12,8 +12,6 @@ ExamDocument:
     uploaded_by_user_id:
       type: string
       format: uuid
-    storage_uri:
-      type: string
     original_filename:
       type: string
     mime_type:
@@ -44,13 +42,23 @@ ExamDocument:
       id,
       patient_id,
       uploaded_by_user_id,
-      storage_uri,
       original_filename,
       mime_type,
       status,
       created_at,
       updated_at,
     ]
+ExamDocumentFile:
+  type: object
+  additionalProperties: false
+  properties:
+    url:
+      type: string
+      format: uri
+    expires_at:
+      type: string
+      format: date-time
+  required: [url, expires_at]
 LabsList:
   description: |-
     Lista de laudos. Por padrao retorna a representacao resumida
