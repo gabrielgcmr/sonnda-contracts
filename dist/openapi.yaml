@@ -656,7 +656,7 @@ components:
 info:
   description: OpenAPI inicial das rotas HTTP da Sonnda.
   title: Sonnda API
-  version: 0.1.0
+  version: 0.2.0
 openapi: 3.0.3
 paths:
   /:
@@ -687,35 +687,7 @@ paths:
       summary: API docs (Redoc)
       tags:
       - Public
-  /healthz:
-    get:
-      operationId: getHealth
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HealthResponse"
-          description: OK
-      security: []
-      summary: Health check
-      tags:
-      - Public
-  /readyz:
-    get:
-      operationId: getReadiness
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HealthResponse"
-          description: OK
-      security: []
-      summary: Readiness check
-      tags:
-      - Public
-  /v1/exam-documents/{documentId}:
+  /exam-documents/{documentId}:
     get:
       operationId: getExamDocument
       parameters:
@@ -743,7 +715,7 @@ paths:
       summary: Obter documento de exame
       tags:
       - ExamDocuments
-  /v1/exam-documents/{documentId}/file:
+  /exam-documents/{documentId}/file:
     get:
       operationId: getExamDocumentFile
       parameters:
@@ -771,7 +743,21 @@ paths:
       summary: Obter URL temporária do arquivo de exame
       tags:
       - ExamDocuments
-  /v1/lab-reports/{labReportId}:
+  /healthz:
+    get:
+      operationId: getHealth
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+          description: OK
+      security: []
+      summary: Health check
+      tags:
+      - Public
+  /lab-reports/{labReportId}:
     get:
       operationId: getLabReport
       parameters:
@@ -799,7 +785,7 @@ paths:
       summary: Obter laudo laboratorial
       tags:
       - LabReports
-  /v1/me:
+  /me:
     delete:
       operationId: deleteCurrentAccount
       responses:
@@ -893,7 +879,7 @@ paths:
       summary: Atualizar perfil do usuário atual
       tags:
       - Me
-  /v1/me/patients:
+  /me/patients:
     get:
       operationId: listAccessiblePatients
       parameters:
@@ -915,7 +901,7 @@ paths:
       summary: Listar pacientes acessíveis pela conta atual
       tags:
       - Patient Access
-  /v1/patients:
+  /patients:
     get:
       operationId: listPatients
       responses:
@@ -963,7 +949,7 @@ paths:
       summary: Criar paciente
       tags:
       - Patient
-  /v1/patients/{patientId}:
+  /patients/{patientId}:
     get:
       operationId: getPatient
       parameters:
@@ -986,7 +972,7 @@ paths:
       summary: Obter paciente
       tags:
       - Patient
-  /v1/patients/{patientId}/exam-documents:
+  /patients/{patientId}/exam-documents:
     get:
       operationId: listExamDocuments
       parameters:
@@ -1054,7 +1040,7 @@ paths:
       summary: Enviar documento de exame
       tags:
       - ExamDocuments
-  /v1/patients/{patientId}/lab-reports:
+  /patients/{patientId}/lab-reports:
     get:
       operationId: listPatientLabReports
       parameters:
@@ -1089,41 +1075,20 @@ paths:
       summary: Listar laudos laboratoriais
       tags:
       - LabReports
-  /v1/patients/{patientId}/labs:
+  /readyz:
     get:
-      operationId: listPatientLabs
-      parameters:
-      - $ref: "#/components/parameters/openapi_components_parameters_PatientId"
-      - description: Retorna a representação completa quando expand=full
-        in: query
-        name: expand
-        schema:
-          enum:
-          - full
-          type: string
-      - description: "Lista de campos para expandir (ex.: results)"
-        in: query
-        name: include
-        schema:
-          type: string
-      - $ref: "#/components/parameters/openapi_components_parameters_LimitParam"
-      - $ref: "#/components/parameters/openapi_components_parameters_OffsetParam"
+      operationId: getReadiness
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LabsList"
+                $ref: "#/components/schemas/HealthResponse"
           description: OK
-        "400":
-          $ref: "#/components/responses/openapi_components_responses_Problem"
-        "401":
-          $ref: "#/components/responses/openapi_components_responses_Problem"
-        "500":
-          $ref: "#/components/responses/openapi_components_responses_Problem"
-      summary: Listar laudos
+      security: []
+      summary: Readiness check
       tags:
-      - Labs
+      - Public
 security:
 - bearerAuth: []
 servers:

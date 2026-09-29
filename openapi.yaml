@@ -68,26 +68,24 @@ paths:
               schema:
                 type: string
   # Me (usuário autenticado)
-  /v1/me:
+  /me:
     $ref: "./openapi/paths/account.yaml#/me"
-  /v1/me/patients:
+  /me/patients:
     $ref: "./openapi/paths/patient-access.yaml#/current-account-patients"
   # patients
-  /v1/patients:
+  /patients:
     $ref: "./openapi/paths/patient.yaml#/collection"
-  /v1/patients/{patientId}:
+  /patients/{patientId}:
     $ref: "./openapi/paths/patient.yaml#/item"
-  /v1/patients/{patientId}/exam-documents:
+  /patients/{patientId}/exam-documents:
     $ref: "./openapi/paths/exams.yaml#/collection"
-  /v1/exam-documents/{documentId}:
+  /exam-documents/{documentId}:
     $ref: "./openapi/paths/exams.yaml#/item"
-  /v1/exam-documents/{documentId}/file:
+  /exam-documents/{documentId}/file:
     $ref: "./openapi/paths/exams.yaml#/file"
-  /v1/patients/{patientId}/labs:
-    $ref: "./openapi/paths/labs.yaml#/legacy-list"
-  /v1/patients/{patientId}/lab-reports:
+  /patients/{patientId}/lab-reports:
     $ref: "./openapi/paths/labs.yaml#/collection"
-  /v1/lab-reports/{labReportId}:
+  /lab-reports/{labReportId}:
     $ref: "./openapi/paths/labs.yaml#/item"
 # =========================
 # Components
